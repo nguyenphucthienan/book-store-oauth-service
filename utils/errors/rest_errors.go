@@ -1,6 +1,10 @@
 package errors
 
-import "net/http"
+import (
+	"encoding/json"
+	"errors"
+	"net/http"
+)
 
 type RestError struct {
 	Message string `json:"message"`
@@ -30,4 +34,12 @@ func NewInternalServerError(message string) *RestError {
 		Status:  http.StatusInternalServerError,
 		Error:   "internal_server_error",
 	}
+}
+
+func NewRestErrorFromBytes(bytes []byte) (*RestError, error) {
+	var restErr RestError
+	if err := json.Unmarshal(bytes, &restErr); err != nil {
+		return nil, errors.New("invalid json")
+	}
+	return &restErr, nil
 }
