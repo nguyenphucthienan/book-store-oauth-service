@@ -7,8 +7,8 @@ import (
 	"github.com/nguyenphucthienan/book-store-oauth-service/service"
 )
 
-var (
-	router = gin.Default()
+const (
+	apiPrefix = "/api"
 )
 
 func Start() {
@@ -19,8 +19,9 @@ func Start() {
 		),
 	)
 
-	router.GET("/oauth/access_tokens/:access_token_id", accessTokenHandler.GetById)
-	router.POST("/oauth/access_tokens", accessTokenHandler.Create)
+	router := gin.Default()
+	router.GET(apiPrefix+"/oauth/access_tokens/:access_token_id", accessTokenHandler.GetById)
+	router.POST(apiPrefix+"/oauth/access_tokens", accessTokenHandler.Create)
 
 	if err := router.Run("localhost:8080"); err != nil {
 		panic(err)
