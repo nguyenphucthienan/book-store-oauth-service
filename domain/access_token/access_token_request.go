@@ -1,6 +1,8 @@
 package access_token
 
-import "github.com/nguyenphucthienan/book-store-oauth-service/utils/errors"
+import (
+	"github.com/nguyenphucthienan/book-store-utils-go/errors"
+)
 
 const (
 	grantTypePassword          = "password"
@@ -20,7 +22,7 @@ type AccessTokenRequest struct {
 	ClientSecret string `json:"client_secret"`
 }
 
-func (accessTokenRequest *AccessTokenRequest) Validate() *errors.RestError {
+func (accessTokenRequest *AccessTokenRequest) Validate() errors.RestError {
 	switch accessTokenRequest.GrantType {
 	case grantTypePassword:
 		break

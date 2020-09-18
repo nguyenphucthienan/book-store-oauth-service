@@ -2,8 +2,8 @@ package access_token
 
 import (
 	"fmt"
-	"github.com/nguyenphucthienan/book-store-oauth-service/utils/errors"
 	"github.com/nguyenphucthienan/book-store-user-service/util/crypto_util"
+	"github.com/nguyenphucthienan/book-store-utils-go/errors"
 	"strings"
 	"time"
 )
@@ -26,7 +26,7 @@ func GetNewAccessToken(userId int64) AccessToken {
 	}
 }
 
-func (accessToken *AccessToken) Validate() *errors.RestError {
+func (accessToken *AccessToken) Validate() errors.RestError {
 	accessToken.AccessToken = strings.TrimSpace(accessToken.AccessToken)
 	if accessToken.AccessToken == "" {
 		return errors.NewBadRequestError("Invalid access token ID")
